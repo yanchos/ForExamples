@@ -1,0 +1,213 @@
+﻿
+@{
+    ViewBag.Title = "AddMoviePage";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Cinemaddict - Добавление фильма</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
+
+    @*<link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
+    <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="~/Content/solar.css" rel="stylesheet" />
+    <link href="~/Content/style.css" rel="stylesheet" />
+    <link href="~/Images/Logo-1.jpg" type="image/png" rel="icon" />
+
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/scripts.js"></script>
+
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row filling-b borders-b l-r">
+            <div class="col-md-2">
+                <a href='@Url.Action("MainPage", "MainPage")'><img class="logo" alt="Логотип Cinemaddict" src="~/Images/Logo-1.jpg"></a>
+            </div>
+            <div class="col-md-8">
+                <div class="btn-group">
+                    <ul class="nav nav-pills">
+                        <li><a href='@Url.Action("SchedulePage", "SchedulePage")'>Расписание</a></li>
+                        @if (Session["session_user_nickname"].ToString() != "N/A")
+                        {
+                            <li><a href='@Url.Action("PersonalPage", "PersonalPage")'>Личный кабинет</a></li>
+                        }
+                        else
+                        {
+                            <li><a href='@Url.Action("EntryPage", "EntryPage")'>Личный кабинет</a></li>
+                        }
+                        <li><a href="#">Новости</a></li>
+                        <li><a href="#">Акции и скидки</a></li>
+                        <li><a href="#">О кинотеатре</a></li>
+                        <li><a href="#">Контакты</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-2">
+                @if (Session["session_user_nickname"].ToString() != "N/A")
+                {
+                    <p>Вы авторизованы как @Session["session_user_nickname"]</p>
+                }
+                else
+                {
+                    <p>Вы не авторизованы</p>
+                }
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="row">
+                    <div class="col-md-12 button-c">
+                        @if (Session["tmp_img"] != null)
+                        {
+                            <img class="poster" alt="Upload Image" src="@Session["tmp_img"].ToString()">
+                        }
+                        else
+                        {
+                            <img class="poster" alt="Upload Image" src="/UpImages/no-image-icon.png">
+                        }
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 button-c">
+                        <input type="file" style="display: none;">
+                        @using (Html.BeginForm("UploadPicture", "AddMoviePage", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            <input type="file" name="fileUpload" /><br />
+                            <input type="submit" class="btn btn-default" name="Submit" id="SubmitSingle" value="Загрузить" />
+                        }
+                    </div>
+                </div>
+            </div>
+            @using (Html.BeginForm())
+            {
+                <div class="col-md-7">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <label for="movie-name">Введите название фильма:</label>
+                        </div>
+                        <div class="col-md-5">
+                            @Html.TextBox("Name", null, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <label for="movie-duration">Введите описание фильма:</label>
+                        </div>
+                        <div class="col-md-5">
+                            @Html.TextArea("Description", null, 5, 50, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <label for="movie-genre1">Выберите 1-ый жанр фильма:</label>
+                        </div>
+                        <div class="col-md-5">
+                            @Html.DropDownList("ID_Genre1", null, htmlAttributes: new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <label for="movie-genre2">Выберите 2-ой жанр фильма:</label>
+                        </div>
+                        <div class="col-md-5">
+                            @Html.DropDownList("ID_Genre2", null, htmlAttributes: new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <label for="movie-genre3">Выберите 3-ий жанр фильма:</label>
+                        </div>
+                        <div class="col-md-5">
+                            @Html.DropDownList("ID_Genre3", null, htmlAttributes: new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <label for="movie-age-limit">Выберите страну производства:</label>
+                        </div>
+                        <div class="col-md-5">
+                            @Html.DropDownList("ID_Country", null, htmlAttributes: new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <label for="movie-age-limit">Выберите ограничение по возрасту:</label>
+                        </div>
+                        <div class="col-md-5">
+                            @Html.DropDownList("ID_AgeRestriction", null, htmlAttributes: new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <label for="movie-director">Введите имя режиссера:</label>
+                        </div>
+                        <div class="col-md-5">
+                            @Html.TextBox("Directors", null, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <label for="movie-scriptwriter">Введите имя сценариста:</label>
+                        </div>
+                        <div class="col-md-5">
+                            @Html.TextBox("Scriptwriters", null, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <label for="movie-producer">Введите имя продюсера:</label>
+                        </div>
+                        <div class="col-md-5">
+                            @Html.TextBox("Producers", null, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <label for="movie-actor">Введите имена актеров:</label>
+                        </div>
+                        <div class="col-md-5">
+                            @Html.TextBox("Actors", null, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <label for="movie-duration">Введите продолжительность:</label>
+                        </div>
+                        <div class="col-md-5">
+                            @Html.TextBox("Duration", null, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <label for="movie-trailer">Введите ссылку на трейлер: </label>
+                        </div>
+                        <div class="col-md-5">
+                            @Html.TextBox("Trailer", null, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 button-r-b">
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-default" value="Сохранить" />
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="row bottom borders-t l-r">
+            <div class="col-md-12 bottom filling-o copyright">
+                <p>Copyright &copy; 2017</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

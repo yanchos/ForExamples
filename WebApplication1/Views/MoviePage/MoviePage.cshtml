@@ -1,0 +1,211 @@
+﻿
+@{
+    ViewBag.Title = "MoviePage";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <title>Cinemaddict - Страница фильма "Джон Уик 2"</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
+
+    @*<link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
+    <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="~/Content/solar.css" rel="stylesheet" />
+    <link href="~/Content/style.css" rel="stylesheet" />
+    <link href="~/Images/Logo-1.jpg" type="image/png" rel="icon" />
+
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/scripts.js"></script>
+
+    <script type="text/javascript">
+	$(document).ready(function(){
+		var url = $("#cartoonVideo").attr('src');
+		$("#myModal").on('hide.bs.modal', function(){
+			$("#cartoonVideo").attr('src', '');
+		});
+		$("#myModal").on('show.bs.modal', function(){
+			$("#cartoonVideo").attr('src', url);
+		});
+	});
+    </script>
+
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row filling-b borders-b l-r">
+            <div class="col-md-2">
+                <a href='@Url.Action("MainPage", "MainPage")'><img class="logo" alt="Логотип Cinemaddict" src="~/Images/Logo-1.jpg"></a>
+            </div>
+            <div class="col-md-8">
+                <div class="btn-group">
+                    <ul class="nav nav-pills">
+                        <li><a href='@Url.Action("SchedulePage", "SchedulePage")'>Расписание</a></li>
+                        @if (Session["session_user_nickname"].ToString() != "N/A")
+                        {
+                            <li><a href='@Url.Action("PersonalPage", "PersonalPage")'>Личный кабинет</a></li>
+                        }
+                        else
+                        {
+                            <li><a href='@Url.Action("EntryPage", "EntryPage")'>Личный кабинет</a></li>
+                        }
+                        <li><a href="#">Новости</a></li>
+                        <li><a href="#">Акции и скидки</a></li>
+                        <li><a href="#">О кинотеатре</a></li>
+                        <li><a href="#">Контакты</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-2">
+                @if (Session["session_user_nickname"].ToString() != "N/A")
+                {
+                    <p>Вы авторизованы как @Session["session_user_nickname"]</p>
+                }
+                else
+                {
+                    <p>Вы не авторизованы</p>
+                }
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <img class="poster" alt="@ViewBag.name" src="@ViewBag.poster">
+            </div>
+            <div class="col-md-4">
+                <label>@ViewBag.name</label>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>@ViewBag.description</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>Сценарист(ы):</label>
+                            </div>
+                            <div class="col-md-8">
+                                <p>@ViewBag.scriptwriters</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>Режиссер(ы):</label>
+                            </div>
+                            <div class="col-md-8">
+                                <p>@ViewBag.directors</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>Продюсер(ы):</label>
+                            </div>
+                            <div class="col-md-8">
+                                <p>@ViewBag.producers</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>Производство:</label>
+                            </div>
+                            <div class="col-md-8">
+                                <p>@ViewBag.country</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>Ограничение по возрасту:</label>
+                            </div>
+                            <div class="col-md-8">
+                                <p>@ViewBag.age</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>Жанр(ы):</label>
+                            </div>
+                            <div class="col-md-8">
+                                <p>@ViewBag.genre1, @ViewBag.genre2, @ViewBag.genre3</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>Продолжительность:</label>
+                            </div>
+                            <div class="col-md-8">
+                                <p>@ViewBag.duration</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>В ролях:</label>
+                            </div>
+                            <div class="col-md-8">
+                                <p>@ViewBag.actors</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <a href="#myModal" class="btn btn-lg btn-default center-block" data-toggle="modal">Смотреть трейлер</a>
+                <div id="myModal" class="modal fade">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                <h4 class="modal-title" style="text-align: center">@ViewBag.name (@ViewBag.age) Трейлер рус.</h4>
+                            </div>
+                            <div class="modal-body">
+                                <iframe width="560" height="315" src="@ViewBag.trailer" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-3">
+                        <p>
+                            Комментарий:
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="col-md-3">
+                        <button type="button" class="btn btn-default btn-block">Отправить</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 comments">
+                        @*Маня: Классный фильм!
+                        Олег: Могло быть и лучше.
+                        Костян: Пустая трата денег и времени.
+                        Олеса: Первая часть была лучше.*@
+                        <textarea type="text" class="form-control" rows="8" cols="50" readonly="readonly" style="text-align: left; white-space: pre;">
+                           
+                        </textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row bottom borders-t l-r">
+            <div class="col-md-12 bottom filling-o copyright">
+                <p>Copyright &copy; 2017</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

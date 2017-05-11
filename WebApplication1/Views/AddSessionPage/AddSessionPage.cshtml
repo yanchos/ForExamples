@@ -1,0 +1,150 @@
+﻿
+@{
+    ViewBag.Title = "AddSessionPage";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Cinemaddict - Добавление сеансов фильма</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
+
+    <!--<link href="~/Content/bootstrap.min.css" rel="stylesheet" />-->
+    <link rel="stylesheet" href="~/Content/bootstrap-datetimepicker.min.css" />
+    <link href="~/Content/solar.css" rel="stylesheet" />
+    <link href="~/Content/style.css" rel="stylesheet" />
+    <link href="~/Images/Logo-1.jpg" type="image/png" rel="icon" />
+
+    <script type="text/javascript" src="~/Scripts/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/moment-with-locales.min.js"></script> 
+    <script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+    <!--<script src="~/Scripts/jquery.min.js"></script>-->
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/scripts.js"></script>
+
+    <script type="text/javascript">
+	  $(function () {
+		$('#datetimepicker2').datetimepicker(
+		  {language: 'ru'}
+		);
+	  });
+    </script>
+    
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row filling-b borders-b l-r">
+            <div class="col-md-2">
+                <a href='@Url.Action("MainPage", "MainPage")'><img class="logo" alt="Логотип Cinemaddict" src="~/Images/Logo-1.jpg"></a>
+            </div>
+            <div class="col-md-8">
+                <div class="btn-group">
+                    <ul class="nav nav-pills">
+                        <li><a href='@Url.Action("SchedulePage", "SchedulePage")'>Расписание</a></li>
+                        @if (Session["session_user_nickname"].ToString() != "N/A")
+                        {
+                            <li><a href='@Url.Action("PersonalPage", "PersonalPage")'>Личный кабинет</a></li>
+                        }
+                        else
+                        {
+                            <li><a href='@Url.Action("EntryPage", "EntryPage")'>Личный кабинет</a></li>
+                        }
+                        <li><a href="#">Новости</a></li>
+                        <li><a href="#">Акции и скидки</a></li>
+                        <li><a href="#">О кинотеатре</a></li>
+                        <li><a href="#">Контакты</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-2">
+
+                @if (Session["session_user_nickname"].ToString() != "N/A")
+                {
+                    <p>Вы авторизованы как @Session["session_user_nickname"]</p>
+                }
+                else
+                {
+                    <p>Вы не авторизованы</p>
+                }
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1>Сплит</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>триллер, 117 мин, 13+</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Добавьте сеансы:</label>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="input-group date" id="datetimepicker2">
+                                <input type="text" class="form-control" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button" class="btn btn-default pull-right">Добавить</button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Список сеансов:</label>
+                    </div>
+                    <div class="col-md-8 comments">
+                        <textarea type="text" class="form-control" rows="8" cols="50" readonly="readonly" style="text-align: justify; white-space: normal;"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 button-r-b">
+                <a href="#myModal" class="btn btn-default" data-toggle="modal">Далее</a>
+                <div id="myModal" class="modal fade">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                <h4 class="modal-title" style="text-align: center;">Подтверждение добавления</h4>
+                            </div>
+                            <div class="modal-body" style="text-align: center;">
+                                Вы действительно хотите добавить новый фильм?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                                <button type="button" class="btn btn-primary" style="background-color: #de591e;">Сохранить изменения</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row bottom borders-t l-r footer">
+            <div class="col-md-12 bottom filling-o copyright">
+                <p>Copyright &copy; 2017</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

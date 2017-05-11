@@ -1,0 +1,123 @@
+﻿
+@{
+    ViewBag.Title = "PersonalPage";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Cinemaddict - Личный кабинет</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
+
+    @*<link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
+    <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="~/Content/solar.css" rel="stylesheet" />
+    <link href="~/Content/style.css" rel="stylesheet" />
+    <link href="~/Images/Logo-1.jpg" type="image/png" rel="icon" />
+
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/scripts.js"></script>
+
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row filling-b borders-b l-r">
+            <div class="col-md-2">
+                <a href='@Url.Action("MainPage", "MainPage")'><img class="logo" alt="Логотип Cinemaddict" src="~/Images/Logo-1.jpg"></a>
+            </div>
+            <div class="col-md-8">
+                <div class="btn-group">
+                    <ul class="nav nav-pills">
+                        <li><a href='@Url.Action("SchedulePage", "SchedulePage")'>Расписание</a></li>
+                        @if (Session["session_user_nickname"].ToString() != "N/A")
+                        {
+                            <li class="active"><a href='@Url.Action("PersonalPage", "PersonalPage")'>Личный кабинет</a></li>
+                        }
+                        else
+                        {
+                            <li class="active"><a href='@Url.Action("EntryPage", "EntryPage")'>Личный кабинет</a></li>
+                        }
+                        <li><a href="#">Новости</a></li>
+                        <li><a href="#">Акции и скидки</a></li>
+                        <li><a href="#">О кинотеатре</a></li>
+                        <li><a href="#">Контакты</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-2">
+                @if (Session["session_user_nickname"].ToString() != "N/A")
+                {
+                    <p>Вы авторизованы как @Session["session_user_nickname"]</p>
+                }
+                else
+                {
+                    <p>Вы не авторизованы</p>
+                }
+            </div>
+        </div>
+        <div class="row">
+            <form method="post" action="/PersonalPage/LogOut">
+                <div class="col-md-12">
+                    <button class="btn btn-default pull-right">Выход</button>
+                </div>
+            </form>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <img class="center-block profile" alt="Фото профиля" src="~/Images/Фото профиля.jpg">
+            </div>
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Мобильный телефон:</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p>@Session["session_user_mobile_number"]</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>E-mail:</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p>@Session["session_user_email"]</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Имя и фамилия:</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p>@Session["session_user_name"]</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Имя пользователя:</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p>@Session["session_user_nickname"]</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*<div class="row">
+            <div class="col-md-12">
+                <button type="button" class="btn btn-default center-block">Проверить баланс по бонусной карте</button>
+            </div>
+        </div>*@
+        <div class="row bottom borders-t l-r footer">
+            <div class="col-md-12 bottom filling-o copyright">
+                <p>Copyright &copy; 2017</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

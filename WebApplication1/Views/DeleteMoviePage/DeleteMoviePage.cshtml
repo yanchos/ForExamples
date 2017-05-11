@@ -1,0 +1,225 @@
+﻿@model WebApplication1.Models.Movies
+@{
+    ViewBag.Title = "DeleteMoviePage";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Cinemaddict - Редактирование фильма</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
+
+    @*<link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
+    <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="~/Content/solar.css" rel="stylesheet" />
+    <link href="~/Content/style.css" rel="stylesheet" />
+    <link href="~/Images/Logo-1.jpg" type="image/png" rel="icon" />
+
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/scripts.js"></script>
+
+    <script type="text/javascript">
+	$(document).ready(function(){
+		var url = $("#cartoonVideo").attr('src');
+		$("#myModal").on('hide.bs.modal', function(){
+			$("#cartoonVideo").attr('src', '');
+		});
+		$("#myModal").on('show.bs.modal', function(){
+			$("#cartoonVideo").attr('src', url);
+		});
+	});
+    </script>
+
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row filling-b borders-b l-r">
+            <div class="col-md-2">
+                <a href='@Url.Action("MainPage", "MainPage")'><img class="logo" alt="Логотип Cinemaddict" src="~/Images/Logo-1.jpg"></a>
+            </div>
+            <div class="col-md-8">
+                <div class="btn-group">
+                    <ul class="nav nav-pills">
+                        <li><a href='@Url.Action("SchedulePage", "SchedulePage")'>Расписание</a></li>
+                        @if (Session["session_user_nickname"].ToString() != "N/A")
+                        {
+                            <li><a href='@Url.Action("PersonalPage", "PersonalPage")'>Личный кабинет</a></li>
+                        }
+                        else
+                        {
+                            <li><a href='@Url.Action("EntryPage", "EntryPage")'>Личный кабинет</a></li>
+                        }
+                        <li><a href="#">Новости</a></li>
+                        <li><a href="#">Акции и скидки</a></li>
+                        <li><a href="#">О кинотеатре</a></li>
+                        <li><a href="#">Контакты</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-2">
+                @if (Session["session_user_nickname"].ToString() != "N/A")
+                {
+                    <p>Вы авторизованы как @Session["session_user_nickname"]</p>
+                }
+                else
+                {
+                    <p>Вы не авторизованы</p>
+                }
+            </div>
+        </div>
+        <div class="row">
+            <h2>Вы уверены, что хотите удалить этот фильм?</h2>
+        </div>
+        @using (Html.BeginForm())
+        {
+            <div class="row">  
+                @Html.HiddenFor(model => model.ID_Movie)
+                <div class="col-md-3">
+                    <div class="row">
+                        <div class="col-md-12 button-c">
+                            <img class="poster" alt=@Html.ValueFor(model => model.Name) src="@Html.ValueFor(model => model.Poster)">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <label for="movie-name">Название фильма:</label>
+                        </div>
+                        <div class="col-md-5">
+                            @Html.DisplayFor(model => model.Name)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <label for="movie-duration">Описание фильма:</label>
+                        </div>
+                        <div class="col-md-5">
+                            @Html.DisplayFor(model => model.Description)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <label for="movie-genre1">1-ый жанр фильма:</label>
+                        </div>
+                        <div class="col-md-5">
+                            @Html.DisplayFor(model => model.Genres.Name)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <label for="movie-genre2">2-ой жанр фильма:</label>
+                        </div>
+                        <div class="col-md-5">
+                            @Html.DisplayFor(model => model.Genres.Name)
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-7">
+                            <label for="movie-genre3">3-ий жанр фильма:</label>
+                        </div>
+                        <div class="col-md-5">
+                            @Html.DisplayFor(model => model.Genres.Name)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <label for="movie-age-limit">Страна производства:</label>
+                        </div>
+                        <div class="col-md-5">
+                            @Html.DisplayFor(model => model.Countries.Name)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <label for="movie-age-limit">Выберите ограничение по возрасту:</label>
+                        </div>
+                        <div class="col-md-5">
+                            @Html.DisplayFor(model => model.AgeRestrictions.Name)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <label for="movie-director">Имя(ена) режиссера(ов):</label>
+                        </div>
+                        <div class="col-md-5">
+                            @Html.DisplayFor(model => model.Directors)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <label for="movie-scriptwriter">Имя(ена) сценариста(ов):</label>
+                        </div>
+                        <div class="col-md-5">
+                            @Html.DisplayFor(model => model.Scriptwriters)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <label for="movie-producer">Имя(ена) продюсера(ов):</label>
+                        </div>
+                        <div class="col-md-5">
+                            @Html.DisplayFor(model => model.Producers)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <label for="movie-actor">Имена актеров:</label>
+                        </div>
+                        <div class="col-md-5">
+                            @Html.DisplayFor(model => model.Actors)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <label for="movie-duration">Продолжительность:</label>
+                        </div>
+                        <div class="col-md-5">
+                            @Html.DisplayFor(model => model.Duration)
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 button-c">
+                    <a href="#myModal" class="btn btn-lg btn-default center-block" data-toggle="modal">Смотреть трейлер</a>
+                    <div id="myModal" class="modal fade">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <h4 class="modal-title" style="text-align: center">@Html.DisplayFor(model => model.Name) (@Html.DisplayFor(model => model.AgeRestrictions.Name)) Трейлер рус.</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <iframe width="560" height="315" src="@Html.ValueFor(model => model.Trailer)" frameborder="0" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 button-r-b">
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-default" value="Удалить" />
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="row bottom borders-t l-r">
+            <div class="col-md-12 bottom filling-o copyright">
+                <p>Copyright &copy; 2017</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+

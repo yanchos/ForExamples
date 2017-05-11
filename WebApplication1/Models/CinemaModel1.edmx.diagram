@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="259027a089ab41f0995e88c4cc15b9f9" Name="Diagram1">
+        <EntityTypeShape EntityType="CinemaddictModel.AgeRestrictions" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaddictModel.Comments" Width="1.5" PointX="5.25" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaddictModel.Countries" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaddictModel.Genres" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaddictModel.Movies" Width="1.5" PointX="3" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaddictModel.Sessions" Width="1.5" PointX="5.25" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaddictModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaddictModel.Users" Width="1.5" PointX="3" PointY="8.5" IsExpanded="true" />
+        <AssociationConnector Association="CinemaddictModel.FK_Movies_AgeRestrictions" ManuallyRouted="false" />
+        <AssociationConnector Association="CinemaddictModel.FK_Comments_Movies" ManuallyRouted="false" />
+        <AssociationConnector Association="CinemaddictModel.FK_Comments_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="CinemaddictModel.FK_Movies_Countries" ManuallyRouted="false" />
+        <AssociationConnector Association="CinemaddictModel.FK_Movies_Genres1" ManuallyRouted="false" />
+        <AssociationConnector Association="CinemaddictModel.FK_Movies_Genres2" ManuallyRouted="false" />
+        <AssociationConnector Association="CinemaddictModel.FK_Movies_Genres3" ManuallyRouted="false" />
+        <AssociationConnector Association="CinemaddictModel.FK_Sessions_Movies" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

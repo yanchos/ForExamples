@@ -1,0 +1,135 @@
+﻿
+@{
+    ViewBag.Title = "EntryPage";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Cinemaddict - Личный кабинет</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
+
+    @*<link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
+    <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="~/Content/solar.css" rel="stylesheet" />
+    <link href="~/Content/style.css" rel="stylesheet" />
+    <link href="~/Images/Logo-1.jpg" type="image/png" rel="icon" />
+
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/scripts.js"></script>
+
+    @if (ViewBag.login == -1)
+    {
+        <script>
+        $(document).ready(function(){
+            $('#error').modal('show');
+        });
+        </script>
+    }
+
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row filling-b borders-b l-r">
+            <div class="col-md-2">
+                <a href='@Url.Action("MainPage", "MainPage")'><img class="logo" alt="Логотип Cinemaddict" src="~/Images/Logo-1.jpg"></a>
+            </div>
+            <div class="col-md-8">
+                <div class="btn-group">
+                    <ul class="nav nav-pills">
+                        <li><a href='@Url.Action("SchedulePage", "SchedulePage")'>Расписание</a></li>
+                        @if (Session["session_user_nickname"].ToString() != "N/A")
+                        {
+                            <li class="active"><a href='@Url.Action("PersonalPage", "PersonalPage")'>Личный кабинет</a></li>
+                        }
+                        else
+                        {
+                            <li class="active"><a href='@Url.Action("EntryPage", "EntryPage")'>Личный кабинет</a></li>
+                        }
+                        <li><a href="#">Новости</a></li>
+                        <li><a href="#">Акции и скидки</a></li>
+                        <li><a href="#">О кинотеатре</a></li>
+                        <li><a href="#">Контакты</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-2">
+                @if (Session["session_user_nickname"].ToString() != "N/A")
+                {
+                    <p>Вы авторизованы как @Session["session_user_nickname"]</p>
+                }
+                else
+                {
+                    <p>Вы не авторизованы</p>
+                }
+            </div>
+        </div>
+        <form method="post" action="/EntryPage/LogIn">
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-3">
+                    <label for="inputEmail">E-mail:</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="email" class="form-control" id="inputEmail" name="inputEmail">
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-3">
+                    <label for="inputPassword">Пароль:</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="password" class="form-control" id="inputPassword" name="inputPassword">
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+            <div class="row" style="text-align: right;">
+                <div class="col-md-3"></div>
+                <div class="col-md-3">
+                    <a class="btn btn-default" href='@Url.Action("RegistrationPage", "RegistrationPage")' type="button">Регистрация</a>
+                </div>
+                <div class="col-md-3" style="text-align: left">
+                    <button class="btn btn-default">Войти</button>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+        </form>
+
+        <div class="row bottom borders-t l-r footer">
+            <div class="col-md-12 bottom filling-o copyright">
+                <p>Copyright &copy; 2017</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="error" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" style="text-align: center;">Ошибка входа</h4>
+                </div>
+                <div class="modal-body" style="text-align: center;">
+                    <p> Неверно указан email или пароль </p>
+                </div>
+                <div class="modal-footer">
+                    <form method="post" action="/EntryPage/LogCancel">
+                        <button class="btn btn-danger" data-dismiss="modal"> OK </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

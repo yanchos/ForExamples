@@ -1,0 +1,151 @@
+﻿@using WebApplication1.Models
+@model List<Movies>
+@{
+    ViewBag.Title = "SchedulePage";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <title>Cinemaddict - Расписание</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <link href="~/Content/solar.css" rel="stylesheet" />
+    <link href="~/Content/style.css" rel="stylesheet" />
+    <link href="~/Images/Logo-1.jpg" type="image/png" rel="icon" />
+
+    <script type="text/javascript" src="~/Scripts/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/moment-with-locales.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+    <!--<script src="~/Scripts/jquery.min.js"></script>-->
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/scripts.js"></script>
+
+    <script type="text/javascript">
+		$(function () {
+			$('#datetimepicker1').datetimepicker(
+				{pickTime: false, language: 'ru'}
+			);
+		});
+    </script>
+
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row filling-b borders-b l-r">
+            <div class="col-md-2">
+                <a href="main-page.html"><a href='@Url.Action("MainPage", "MainPage")'><img class="logo" alt="Логотип Cinemaddict" src="~/Images/Logo-1.jpg"></a>
+            </div>
+            <div class="col-md-8">
+                <div class="btn-group">
+                    <ul class="nav nav-pills">
+                        <li class="active"><a href='@Url.Action("SchedulePage", "SchedulePage")'>Расписание</a></li>
+                        @if (Session["session_user_nickname"].ToString() != "N/A")
+                        {
+                            <li><a href='@Url.Action("PersonalPage", "PersonalPage")'>Личный кабинет</a></li>
+                        }
+                        else
+                        {
+                            <li><a href='@Url.Action("EntryPage", "EntryPage")'>Личный кабинет</a></li>
+                        }
+                        <li><a href="#">Новости</a></li>
+                        <li><a href="#">Акции и скидки</a></li>
+                        <li><a href="#">О кинотеатре</a></li>
+                        <li><a href="#">Контакты</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-2">
+                @*<p>Вы авторизованы как Администратор</p>*@
+                @if (Session["session_user_nickname"].ToString() != "N/A")
+                {
+                    <p>Вы авторизованы как @Session["session_user_nickname"]</p>
+                }
+                else
+                {
+                    <p>Вы не авторизованы</p>
+                }
+            </div>
+        </div>
+        <div class="row l-r">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <div class="input-group date" id="datetimepicker1">
+                        <input type="text" class="form-control" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon-calendar glyphicon"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <@*div class="col-md-2">
+                <a class="btn btn-default center-block" href='@Url.Action("AddMoviePage", "AddMoviePage")' role="button">Добавить фильм</a>
+            </div>*@
+        </div>
+        <div class="row bottom">
+            <div class="col-md-12 bottom">
+                @foreach(var m in Model)
+                {
+                    <div class="row borders-t bottom">
+                        <div class="col-md-2">
+                            <a href='@Url.Action("MoviePage", "MoviePage", new { cur_movie = m.ID_Movie })'><img class="poster" alt="@m.Name" src="@m.Poster"></a>
+                        </div>
+                        <div class="col-md-5">
+                            <a href='@Url.Action("MoviePage", "MoviePage", new { cur_movie = m.ID_Movie })'>@m.Name</a>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Утро:</label>
+                                </div>
+                                <div class="col-md-8 time">
+                                    @foreach (var s in m.Sessions.Where(d => d.DayTime == 0))
+                                    {
+                                        <a href='@Url.Action("SchedulePage","SchedulePage")'>@s.Time.Hour:@s.Time.Minute</a>
+                                    }
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>День:</label>
+                                </div>
+                                <div class="col-md-8 time">
+                                    @foreach (var s in m.Sessions.Where(d => d.DayTime == 1))
+                                    {
+                                        <a href='@Url.Action("SchedulePage","SchedulePage")'>@s.Time.Hour:@s.Time.Minute</a>
+                                    }
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Вечер:</label>
+                                </div>
+                                <div class="col-md-8 time">
+                                    @foreach (var s in m.Sessions.Where(d => d.DayTime == 2))
+                                    {
+                                        <a href='@Url.Action("SchedulePage","SchedulePage")'>@s.Time.Hour:@s.Time.Minute</a>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            </div>
+        </div>
+        <div class="row bottom borders-t l-r">
+            <div class="col-md-12 bottom filling-o copyright">
+                <p>Copyright &copy; 2017</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
